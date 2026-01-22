@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-forget-password-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './forget-password-form.component.html',
 })
 export class ForgetPasswordFormComponent {
