@@ -1,0 +1,32 @@
+<div
+  class="bg-white border-2 border-gray-300 rounded-2xl border-opacity-25 hover:border-green-600 hover:shadow-2xl"
+>
+  <div class="h-full p-2">
+    <a [routerLink]="['/details', prod._id, prod.slug]">
+      <img
+        class="object-contain md:h-36 lg:h-96 w-full"
+        [src]="prod.imageCover"
+        [alt]="prod.title"
+      />
+    </a>
+    <div class="p-4">
+      <h2 class="font-medium text-sm text-gray-400">Category</h2>
+      <h2 class="font-medium text-sm text-gray-400">{{ prod.category.name }}</h2>
+      <h2 class="font-medium text-sm text-gray-800 line-clamp-1 mb-1">{{ prod.title }}</h2>
+      <p class="font-normal text-xm text-gray-800 line-clamp-2 mb-1">{{ prod.description }}</p>
+      <button (click)="addToCart(prod._id)" class="btn-main w-full">Add to cart</button>
+      <button (click)="addToWishlist(prod._id)">
+        @if (isInWishlist()) {
+          <i class="fa-heart fa-solid"></i>
+        } @else {
+          <i class="fa-heart fa-regular"></i>
+        }
+      </button>
+
+      <h3>
+        Price: <span>{{ prod.price }}</span
+        >$
+      </h3>
+    </div>
+  </div>
+</div>

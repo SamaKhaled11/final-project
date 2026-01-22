@@ -1,0 +1,19 @@
+<form [formGroup]="verifyCodeForm" (ngSubmit)="submit()" class="flex flex-col gap-6">
+  <div>
+    <label class="block mb-2 text-lg">Verification Code</label>
+    <input
+      type="text"
+      formControlName="code"
+      class="w-full p-3 rounded-xl border"
+      placeholder="Enter the code you received"
+    />
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="isLoading"
+    class="bg-green-600 text-white py-3 rounded-xl disabled:opacity-50"
+  >
+    {{ isLoading ? 'Verifying...' : 'Verify Code' }}
+  </button>
+</form>

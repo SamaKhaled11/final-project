@@ -1,0 +1,25 @@
+<section class="px-10 md:px-20">
+  <app-section-header [title]="'All Brands'" />
+
+  <div class="grid md:grid-cols-3 lg:grid-cols-4">
+    @for (brand of brandsService.allBrands; track $index) {
+      <div
+        class="bg-white border-2 border-gray-300 rounded-2xl border-opacity-25 hover:border-green-600 hover:shadow-2xl"
+      >
+        <div class="h-full p-2">
+          <a [routerLink]="['/brands/product-of-brand', brand.name]">
+            <img
+              class="object-contain md:h-36 lg:h-96 w-full"
+              [src]="brand.image"
+              [alt]="brand.name"
+            />
+          </a>
+          <div class="p-4">
+            <h2 class="font-medium text-sm text-gray-400">Brand</h2>
+            <h3>{{ brand.name }}</h3>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

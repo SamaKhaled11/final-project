@@ -1,0 +1,12 @@
+<section>
+  <app-section-header [title]="'Related Products'" />
+  @if (!ProductsService.allProducts) {
+  <app-loading-spinner />
+  } @else {
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 p-6 mb-6">
+    @for (product of ProductsService.allProducts; track product._id) {
+    <app-card-products [prod]="product" />
+    }
+  </div>
+  }
+</section>

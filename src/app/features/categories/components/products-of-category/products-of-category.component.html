@@ -1,0 +1,9 @@
+<section class="px-10 md:px-20">
+  <h2 class="text-xl font-bold mb-6">Products of {{ categoryName }}</h2>
+
+  <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+    @for (product of filteredProducts; track product._id) {
+      <app-card-products [prod]="product" />
+    }
+  </div>
+</section>

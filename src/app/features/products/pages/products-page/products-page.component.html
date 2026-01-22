@@ -1,0 +1,24 @@
+<section>
+  <app-section-header [title]="'All Products'" />
+  @if (!ProductsService.allProducts) {
+  <app-loading-spinner />
+  } @else {
+  <div class="my-20">
+    <input
+      [(ngModel)]="searchText"
+      type="search"
+      class="main-input shadow-2xl"
+      placeholder="search by name or id..."
+    />
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 p-6 mb-6">
+    @for (product of ProductsService.allProducts | filterItem:searchText: ['title','_id'] |
+    paginate: { itemsPerPage: limit, currentPage: page ,totalItems:ProductsService.totalProducts};
+    track product._id) {
+    <app-card-products [prod]="product" />
+    }
+  </div>
+  <pagination-controls (pageChange)="pageChanges($event)"></pagination-controls>
+  }
+</section>

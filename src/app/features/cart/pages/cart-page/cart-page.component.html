@@ -1,0 +1,135 @@
+<section class="bg-gray-50 py-8 md:py-16 antialiased">
+  <div class="mx-auto max-w-7xl px-4 2xl:px-0">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6">Shopping Cart</h2>
+
+    @if (!cartService.userCart) {
+      <app-loading-spinner />
+    } @else {
+      @if (!cartService.userCart.products.length) {
+        <div
+          class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md"
+          role="alert"
+        >
+          <p class="font-bold text-lg">No products added yet</p>
+          <p>Add some items to your cart to see them here.</p>
+        </div>
+      } @else {
+        <div class="lg:flex lg:space-x-8">
+          <div class="flex-1 space-y-6 w-full lg:w-2/3">
+            @for (prod of cartService.userCart.products; track $index) {
+              <div
+                class="flex flex-col md:flex-row items-center md:items-start justify-between bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6"
+              >
+                <a
+                  href="#"
+                  class="block w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-md overflow-hidden"
+                >
+                  <img
+                    [src]="prod.product.imageCover"
+                    [alt]="prod.product.title"
+                    class="w-full h-full object-cover"
+                  />
+                </a>
+
+                <div class="flex-1 mt-4 md:mt-0 md:ml-6 flex flex-col justify-between w-full">
+                  <a
+                    [routerLink]="['/details', prod.product.id]"
+                    class="text-lg font-medium text-gray-900 hover:underline"
+                  >
+                    {{ prod.product.title }}
+                  </a>
+
+                  <div class="flex items-center justify-between mt-2">
+                    <div class="flex items-center border rounded-md overflow-hidden">
+                      <button
+                        (click)="updateProduct(prod.count - 1, prod.product._id)"
+                        class="px-2 py-1 bg-gray-100 hover:bg-gray-200"
+                      >
+                        -
+                      </button>
+                      <input
+                        type="text"
+                        class="w-12 text-center text-sm font-medium border-x border-gray-200 focus:outline-none"
+                        [value]="prod.count"
+                      />
+                      <button
+                        (click)="updateProduct(prod.count + 1, prod.product._id)"
+                        class="px-2 py-1 bg-gray-100 hover:bg-gray-200"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <p class="text-lg font-bold text-gray-900">${{ prod.price }}</p>
+                  </div>
+
+                  <div class="flex space-x-4 mt-3">
+                    <button
+                      type="button"
+                      class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline"
+                    >
+                      <i class="fas fa-heart me-1"></i> Add to Favorites
+                    </button>
+
+                    <button
+                      type="button"
+                      (click)="deleteCartProduct(prod.product._id)"
+                      class="flex items-center text-sm font-medium text-red-600 hover:underline"
+                    >
+                      <i class="fas fa-trash me-1"></i> Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="mt-6 lg:mt-0 lg:w-1/3 lg:sticky lg:top-20">
+            <div class="space-y-4 bg-white p-6 rounded-lg shadow-md border border-gray-200">
+              <h3 class="text-xl font-semibold text-green-700">Order Summary</h3>
+
+              <div class="space-y-2">
+                <dl class="flex justify-between text-gray-500">
+                  <dt>Original price</dt>
+                  <dd>{{ cartService.originalPrice | currency: 'EGP' }}</dd>
+                </dl>
+                <dl class="flex justify-between text-green-600">
+                  <dt>Savings</dt>
+                  <dd>-$0</dd>
+                </dl>
+                <dl class="flex justify-between text-gray-500">
+                  <dt>Store Pickup</dt>
+                  <dd>$53</dd>
+                </dl>
+                <dl class="flex justify-between text-gray-500">
+                  <dt>Tax</dt>
+                  <dd>$10</dd>
+                </dl>
+              </div>
+
+              <hr class="border-gray-200" />
+
+              <dl class="flex justify-between text-lg font-bold text-green-700">
+                <dt>Total</dt>
+                <dd>{{ cartService.totalPrice | currency: 'EGP' }}</dd>
+              </dl>
+
+              <a
+                [routerLink]="['/payment', cartService.userCart._id]"
+                class="block w-full text-center bg-green-700 text-white py-2 rounded-lg hover:bg-green-800 mt-4"
+              >
+                Proceed to Checkout
+              </a>
+
+              <button
+                (click)="clearCart()"
+                class="block w-full text-center bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 mt-2"
+              >
+                Clear Cart <i class="fas fa-trash ms-2"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</section>
